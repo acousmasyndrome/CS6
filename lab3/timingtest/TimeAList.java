@@ -1,4 +1,5 @@
 package timingtest;
+import com.puppycrawl.tools.checkstyle.checks.indentation.NewHandler;
 import edu.princeton.cs.algs4.Stopwatch;
 
 /**
@@ -22,6 +23,30 @@ public class TimeAList {
     }
 
     public static void timeAListConstruction() {
-        // TODO: YOUR CODE HERE
+        double time;
+        int time_cycle;
+        AList<Integer> Ns=new AList<>();
+        AList<Double> times=new AList<>();
+        AList<Integer> opCounts=new AList<>();
+
+        int[] timing=new int[]{1000,2000,4000,8000,16000,32000,64000,128000,1000000,10000000};
+        for(int index=0;index< timing.length;index++){
+            time_cycle=timing[index];
+            time=timeAListConstruction_helper(time_cycle);
+            Ns.addLast(time_cycle);
+            times.addLast(time);
+        }
+        opCounts=Ns;
+        printTimingTable(Ns,times,opCounts);
+
+    }
+    public static double timeAListConstruction_helper(int times)
+    {   AList<String> alist=new AList<>();
+        Stopwatch sw = new Stopwatch();
+        for(int i=0;i<times;i++){
+            alist.addLast("duck");
+        }
+        double timeInSeconds = sw.elapsedTime();
+        return timeInSeconds;
     }
 }
