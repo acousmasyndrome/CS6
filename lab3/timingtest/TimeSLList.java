@@ -27,23 +27,24 @@ public class TimeSLList {
         AList<Integer> Ns=new AList<>();
         AList<Double> times=new AList<>();
         AList<Integer> opCounts=new AList<>();
+        SLList<String> sllist=new SLList<>();
 
-        int[] timing=new int[]{1000,2000,4000,8000,16000,32000,64000,128000};
+        int[] timing=new int[]{1000,2000,4000,8000,16000,32000,64000};
         for(int index=0;index< timing.length;index++){
             time_cycle=timing[index];
-            time=timeGetLast_helper(time_cycle);
+            for(int i=0;i<time_cycle;i++){
+                sllist.addLast("duck");
+            }
+            time=timeGetLast_helper(time_cycle,sllist);
             Ns.addLast(time_cycle);
             times.addLast(time);
-            opCounts.addLast(10000);
+            opCounts.addLast(1000);
         }
         printTimingTable(Ns,times,opCounts);
 
     }
-    public static double timeGetLast_helper(int times)
-    {   SLList<String> sllist=new SLList<>();
-        for(int i=0;i<times;i++){
-            sllist.addLast("duck");
-        }
+    public static double timeGetLast_helper(int times,SLList<String> sllist)
+    {
         Stopwatch sw = new Stopwatch();
         sllist.getLast();
         double timeInSeconds = sw.elapsedTime();

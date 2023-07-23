@@ -29,7 +29,7 @@ public class TimeAList {
         AList<Double> times=new AList<>();
         AList<Integer> opCounts=new AList<>();
 
-        int[] timing=new int[]{1000,2000,4000,8000,16000,32000,64000,128000,1000000,10000000};
+        int[] timing=new int[]{1000,2000,4000,8000,16000,32000,64000,128000};
         for(int index=0;index< timing.length;index++){
             time_cycle=timing[index];
             time=timeAListConstruction_helper(time_cycle);
