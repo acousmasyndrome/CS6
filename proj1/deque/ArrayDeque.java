@@ -33,7 +33,7 @@ public class ArrayDeque<item> {
     }
     public void addFirst(item x){
         items[nextFirst]=x;
-        nextFirst=nextFirst-1%compacity;
+        nextFirst=nextFirst+compacity-1%compacity;
         size=size+1;
     }
     public void addLast(item x) {
@@ -89,7 +89,7 @@ public class ArrayDeque<item> {
         if(size==0){return null;}
         else{
             item marked=items[nextLast-1%compacity];
-            nextLast=nextLast-1%compacity;
+            nextLast=nextLast-1+compacity%compacity;
             size=size-1;
             return marked;
         }
@@ -97,7 +97,7 @@ public class ArrayDeque<item> {
 
     }
     public item get(int index){
-        if(index<size){
+        if(index<size&&index>=0){
             return items[nextFirst+1+index%compacity];
         }
         else{
