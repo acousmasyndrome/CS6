@@ -3,24 +3,17 @@ package deque;
 public class LinkedListDeque<item> {
     private Nodes sentinal ;
     private int size;
-    public class Nodes{
+    public class Nodes {
         public item content;
         public Nodes next;
         public Nodes prev;
-        public Nodes(item x,Nodes items){
-            content=x;
-            next=items;
-            if (items!=null) {
+
+        public Nodes(item x, Nodes items) {
+            content = x;
+            next = items;
+            if (items != null) {
                 items.prev = this;
             }
-        }
-        public Nodes(Nodes items,item x){
-            content=x;
-            while(items.next!=null){
-               items=items.next;
-            }
-            prev=items;
-            items.next=this;
         }
     }
     public LinkedListDeque(){
@@ -47,10 +40,10 @@ public class LinkedListDeque<item> {
     }
     public void addLast(item x){
         if(sentinal.next!=null){
-        sentinal.next=new Nodes(sentinal.next,x);
-        Nodes lastitem=sentinal.next.prev.next;
-        lastitem.next=sentinal.next;
-        sentinal.next.prev=lastitem;
+            Nodes prev_lastNodes=sentinal.next.prev;
+            Nodes last_nodes=new Nodes(x,sentinal.next);
+            prev_lastNodes.next=last_nodes;
+            last_nodes.prev=prev_lastNodes;
             size=size+1;}
         else{
             addFirst(x);
