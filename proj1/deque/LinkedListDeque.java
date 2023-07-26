@@ -80,7 +80,7 @@ public class LinkedListDeque<item> {
     public item removeFirst() {
         Nodes firstitem=sentinal.next;
         if(firstitem!=null){
-            if(firstitem.next!=null) {
+            if(size>1) {
                 sentinal.next = sentinal.next.next;
                 sentinal.next.prev = firstitem.prev;
                 firstitem.prev.next = sentinal.next;
@@ -100,7 +100,7 @@ public class LinkedListDeque<item> {
    public item removeLast(){
         if(sentinal.next!=null) {
             Nodes lastitem = sentinal.next.prev;
-            if(size>=2) {
+            if(size>1) {
                 lastitem.prev.next = sentinal.next;
                 sentinal.next.prev = lastitem.prev;
                 size = size - 1;
@@ -117,13 +117,13 @@ public class LinkedListDeque<item> {
         }
    }
    public  item get(int index){
-        if(index<size){
-            Nodes marked=sentinal.next;
+        if(index<size&&index>=0){
+            Nodes marked=sentinal;
             if(index==0){
                 return marked.content;
             }
             else {
-                for (int i = 0; i < index; i++) {
+                for (int i = 0; i < index+1; i++) {
                     marked = marked.next;
                 }
                 return marked.content;
@@ -134,7 +134,7 @@ public class LinkedListDeque<item> {
         }
    }
    public item getRecursive(int index){
-       if(index<size){
+       if(index<size&&index>=0){
            Nodes marked=sentinal.next;
            return getRecursive_helper(index,marked);
        }
