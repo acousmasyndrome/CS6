@@ -16,10 +16,10 @@ public class LinkedListDeque<item> {
         }
         public Nodes(Nodes items,item x){
             content=x;
-            prev=items;
             while(items.next!=null){
                items=items.next;
             }
+            prev=items;
             items.next=this;
         }
     }
@@ -59,7 +59,7 @@ public class LinkedListDeque<item> {
 
     }
     public boolean isEmpty(){
-        if (sentinal.next==null){
+        if (size==0){
             return true;
         }
         else{
