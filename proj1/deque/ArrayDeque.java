@@ -16,27 +16,33 @@ public class ArrayDeque<item> {
     private void resize(int new_compacity){
         item[] new_items=(item[]) new Object[new_compacity];
         if(nextLast<=nextFirst){
-            for(int i=nextFirst+1;i<nextLast+compacity;i++){
-               new_items[i-nextFirst-1]=items[i%compacity];
+            for(int i=(nextFirst+1)%compacity;i<(nextFirst+1)%compacity+size;i++){
+               new_items[i-(nextFirst+1)%compacity]=items[i%compacity];
             }
         }else {
             for (int i = nextFirst + 1; i < nextLast; i++) {
                 new_items[i-nextFirst-1]=items[i];
             }
-            items=new_items;
-            compacity=new_compacity;
-            nextFirst=compacity-1;
-            nextLast=size;
+
         }
 
-
+        this.items=new_items;
+        compacity=new_compacity;
+        nextFirst=compacity-1;
+        nextLast=size;
     }
     public void addFirst(item x){
+        if(size==compacity){
+            resize(2*compacity);
+        }
         items[nextFirst]=x;
         nextFirst=(nextFirst+compacity-1)%compacity;
         size=size+1;
     }
     public void addLast(item x) {
+        if(size==compacity){
+            resize(2*compacity);
+        }
         items[nextLast]=x;
         nextLast=(nextLast+1)%compacity;
         size=size+1;
@@ -59,7 +65,7 @@ public class ArrayDeque<item> {
         }
         else{
         if(nextLast<=nextFirst){
-           for(int i=nextFirst+1;i<nextLast+compacity;i++){
+           for(int i=(nextFirst+1)%compacity;i<(nextFirst+1)%compacity+size;i++){
                System.out.print(items[i%compacity]+"");
            }
         }else {
@@ -74,6 +80,7 @@ public class ArrayDeque<item> {
         if(size-1<compacity/4&&compacity>=16){
             resize(compacity/2);
         }
+
         if(size==0){return null;}
         else {
             item marked = items[(nextFirst + 1) % compacity];
@@ -86,6 +93,7 @@ public class ArrayDeque<item> {
         if(size-1<compacity/4&&compacity>=16){
             resize(compacity/2);
         }
+
         if(size==0){return null;}
         else{
             item marked=items[(nextLast-1+compacity)%compacity];

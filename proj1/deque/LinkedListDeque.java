@@ -74,7 +74,7 @@ public class LinkedListDeque<item> {
         Nodes firstitem=sentinal.next;
         if(firstitem!=null){
             if(size>1) {
-                sentinal.next = sentinal.next.next;
+                sentinal.next = firstitem.next;
                 sentinal.next.prev = firstitem.prev;
                 firstitem.prev.next = sentinal.next;
                 size = size - 1;
@@ -112,15 +112,10 @@ public class LinkedListDeque<item> {
    public  item get(int index){
         if(index<size&&index>=0){
             Nodes marked=sentinal;
-            if(index==0){
-                return marked.content;
-            }
-            else {
-                for (int i = 0; i < index+1; i++) {
-                    marked = marked.next;
+            for (int i = 0; i < index+1; i++) {
+                marked = marked.next;
                 }
                 return marked.content;
-            }
         }
         else{
             return null;
