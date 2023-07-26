@@ -1,6 +1,6 @@
 package deque;
 
-public class ArrayDeque<item> {
+public class ArrayDeque<item> implements Deque<item>{
     private int size;
     private int nextFirst;
     private int nextLast;
@@ -31,6 +31,7 @@ public class ArrayDeque<item> {
         nextFirst=compacity-1;
         nextLast=size;
     }
+    @Override
     public void addFirst(item x){
         if(size==compacity){
             resize(2*compacity);
@@ -39,6 +40,7 @@ public class ArrayDeque<item> {
         nextFirst=(nextFirst+compacity-1)%compacity;
         size=size+1;
     }
+    @Override
     public void addLast(item x) {
         if(size==compacity){
             resize(2*compacity);
@@ -48,17 +50,11 @@ public class ArrayDeque<item> {
         size=size+1;
     }
 
-    public boolean isEmpty(){
-        if(size==0){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+    @Override
     public int size(){
         return size;
     }
+    @Override
     public void printDeque() {
         if(size==0) {
            System.out.print("null");
@@ -76,6 +72,7 @@ public class ArrayDeque<item> {
         }
         System.out.println();
     }
+    @Override
     public item removeFirst(){
         if(size-1<compacity/4&&compacity>=16){
             resize(compacity/2);
@@ -89,6 +86,7 @@ public class ArrayDeque<item> {
             return marked;
         }
     }
+    @Override
     public item removeLast(){
         if(size-1<compacity/4&&compacity>=16){
             resize(compacity/2);
@@ -104,6 +102,7 @@ public class ArrayDeque<item> {
 
 
     }
+    @Override
     public item get(int index){
         if(index<size&&index>=0){
             return items[(nextFirst+1+index)%compacity];
