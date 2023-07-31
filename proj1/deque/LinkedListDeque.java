@@ -1,14 +1,15 @@
 package deque;
 
-public class LinkedListDeque<item> implements Deque<item> {
-    private Nodes sentinal ;
+public class LinkedListDeque<T> implements Deque<T> {
+    private Nodes sentinal;
     private int size;
+
     public class Nodes {
-        public item content;
+        public T content;
         public Nodes next;
         public Nodes prev;
 
-        public Nodes(item x, Nodes items) {
+        public Nodes(T x, Nodes items) {
             content = x;
             next = items;
             if (items != null) {
@@ -17,162 +18,176 @@ public class LinkedListDeque<item> implements Deque<item> {
         }
     }
 
-    public LinkedListDeque(){
-        item x=null;
-        sentinal=new Nodes(x,null) ;
-        size=0;
+    public LinkedListDeque() {
+        T x = null;
+        sentinal = new Nodes(x, null);
+        size = 0;
     }
 
     @Override
-    public void addFirst(item x){
-        if(sentinal.next!=null){
-        Nodes lastitem=sentinal.next.prev;
-        sentinal.next=new Nodes(x,sentinal.next);
-        sentinal.next.prev=lastitem;
-        lastitem.next=sentinal.next;}
-        else{
-            sentinal.next=new Nodes(x,null);
-            sentinal.next.prev=sentinal.next;
-            sentinal.next.next=sentinal.next;
+    public void addFirst(T x) {
+        if (sentinal.next != null) {
+            Nodes lastitem = sentinal.next.prev;
+            sentinal.next = new Nodes(x, sentinal.next);
+            sentinal.next.prev = lastitem;
+            lastitem.next = sentinal.next;
+        } else {
+            sentinal.next = new Nodes(x, null);
+            sentinal.next.prev = sentinal.next;
+            sentinal.next.next = sentinal.next;
 
         }
 
-        size=size+1;
+        size = size + 1;
 
     }
+
     @Override
-    public void addLast(item x){
-        if(sentinal.next!=null){
-            Nodes prev_lastNodes=sentinal.next.prev;
-            Nodes last_nodes=new Nodes(x,sentinal.next);
-            prev_lastNodes.next=last_nodes;
-            last_nodes.prev=prev_lastNodes;
-            size=size+1;}
-        else{
+    public void addLast(T x) {
+        if (sentinal.next != null) {
+            Nodes prev_lastNodes = sentinal.next.prev;
+            Nodes last_nodes = new Nodes(x, sentinal.next);
+            prev_lastNodes.next = last_nodes;
+            last_nodes.prev = prev_lastNodes;
+            size = size + 1;
+        } else {
             addFirst(x);
         }
 
 
     }
+
     @Override
-    public int size(){
+    public int size() {
         return size;
     }
-    public void printDeque(){
-        Nodes marked=sentinal.next;
-        for(int i=0;i<size;i++){
-            System.out.print(marked.content+"");
-            marked=marked.next;
+
+    public void printDeque() {
+        Nodes marked = sentinal.next;
+        for (int i = 0; i < size; i++) {
+            System.out.print(marked.content + "");
+            marked = marked.next;
         }
         System.out.println();
     }
+
     @Override
-    public item removeFirst() {
-        Nodes firstitem=sentinal.next;
-        if(firstitem!=null){
-            if(size>1) {
+    public T removeFirst() {
+        Nodes firstitem = sentinal.next;
+        if (firstitem != null) {
+            if (size > 1) {
                 sentinal.next = firstitem.next;
                 sentinal.next.prev = firstitem.prev;
                 firstitem.prev.next = sentinal.next;
                 size = size - 1;
                 return firstitem.content;
-            }
-            else{
-                sentinal.next=null;
-                size=size-1;
+            } else {
+                sentinal.next = null;
+                size = size - 1;
                 return firstitem.content;
             }
-        }
-        else{
+        } else {
             return null;
         }
     }
+
     @Override
-   public item removeLast(){
-        if(sentinal.next!=null) {
+    public T removeLast() {
+        if (sentinal.next != null) {
             Nodes lastitem = sentinal.next.prev;
-            if(size>1) {
+            if (size > 1) {
                 lastitem.prev.next = sentinal.next;
                 sentinal.next.prev = lastitem.prev;
                 size = size - 1;
                 return lastitem.content;
-            }
-            else{
-                sentinal.next=null;
-                size=size-1;
+            } else {
+                sentinal.next = null;
+                size = size - 1;
                 return lastitem.content;
             }
-        }
-        else{
+        } else {
             return null;
         }
-   }
+    }
+
     @Override
-   public  item get(int index){
-        if(index<size&&index>=0){
-            Nodes marked=sentinal;
-            for (int i = 0; i < index+1; i++) {
+    public T get(int index) {
+        if (index < size && index >= 0) {
+            Nodes marked = sentinal;
+            for (int i = 0; i < index + 1; i++) {
                 marked = marked.next;
-                }
-                return marked.content;
-        }
-        else{
+            }
+            return marked.content;
+        } else {
             return null;
         }
-   }
-   public item getRecursive(int index){
-       if(index<size&&index>=0){
-           Nodes marked=sentinal.next;
-           return getRecursive_helper(index,marked);
-       }
-       else{
-          return null;
-       }
-   }
-   //a helper method to better fulfill the mission of get index element recursively.
-   private item getRecursive_helper(int index, Nodes marked){
-        if(index==0){
+    }
+
+    public T getRecursive(int index) {
+        if (index < size && index >= 0) {
+            Nodes marked = sentinal.next;
+            return getRecursive_helper(index, marked);
+        } else {
+            return null;
+        }
+    }
+
+    //a helper method to better fulfill the mission of get index element recursively.
+    private T getRecursive_helper(int index, Nodes marked) {
+        if (index == 0) {
             return marked.content;
+        } else {
+            return getRecursive_helper(index - 1, marked.next);
         }
-        else{
-            return getRecursive_helper(index-1,marked.next);
-        }
-   }
-    public class Linkediterator implements Iterator{
-        int pointer=0;
+    }
+
+    public class Linkediterator implements Iterator {
+        int pointer = 0;
 
         public boolean hasNext() {
-            if(pointer<size){
+            if (pointer < size) {
                 return true;
             }
             return false;
         }
 
 
-        public item next() {
+        public T next() {
             pointer++;
-           return get(pointer);
+            return get(pointer-1);
 
 
         }
     }
 
-   public Iterator<item> iterator(){
+    public Iterator<T> iterator() {
         return new Linkediterator();
-   }
+    }
 
-   public boolean equals(Object o){
-        if(o instanceof Deque){
-            if(size==((Deque<?>) o).size()){
-                for(int i=0;i<size;i++){
-                    if(get(i)==((Deque<?>) o).get(i)){
-                        return true;
-                    }
+    public boolean equals(Object o) {
+        if (o instanceof LinkedListDeque) {
+            LinkedListDeque<T> otherobject = (LinkedListDeque<T>) o;
+            if (size == otherobject.size()) {
+                if (this == o) {
+                    return true;
                 }
+                if (size == 0) {
+                    return true;
+                } else {
+                    for (int i = 0; i < size; i++) {
+                        if (get(i) != otherobject.get(i)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            } else {
+                return false;
             }
-            }
-
-       return false;
-   }
+        } else {
+            return false;
+        }
+    }
 }
+
 
