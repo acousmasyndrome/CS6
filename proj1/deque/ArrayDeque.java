@@ -26,7 +26,7 @@ public class ArrayDeque<item> implements Deque<item>{
 
         }
 
-        this.items=new_items;
+        items=new_items;
         compacity=new_compacity;
         nextFirst=compacity-1;
         nextLast=size;
@@ -112,4 +112,43 @@ public class ArrayDeque<item> implements Deque<item>{
         }
 
     }
+    public class Arrayiterator implements Iterator{
+        int pointer=0;
+        @Override
+        public boolean hasNext() {
+            if(pointer<size){
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public item next() {
+            pointer++;
+            return get(pointer);
+
+
+        }
+    }
+    @Override
+    public Iterator<item> iterator(){
+        return new Arrayiterator();
+    }
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Deque){
+            if(size==((Deque<?>) o).size()){
+                for(int i=0;i<size;i++){
+                    if(get(i)==((Deque<?>) o).get(i)){
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 }
+
+
+
