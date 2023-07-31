@@ -1,5 +1,5 @@
 package deque;
-
+import java.util.Iterator;
 public class LinkedListDeque<T> implements Deque<T> {
     private Nodes sentinal;
     private int size;
@@ -141,8 +141,12 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
     }
 
-    public class Linkediterator implements Iterator {
-        int pointer = 0;
+    public class Linkediterator implements Iterator<T> {
+        private int pointer ;
+
+        public Linkediterator() {
+            pointer = 0;
+        }
 
         public boolean hasNext() {
             if (pointer < size) {

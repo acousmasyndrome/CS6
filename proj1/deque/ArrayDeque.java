@@ -1,5 +1,5 @@
 package deque;
-
+import java.util.Iterator;
 public class ArrayDeque<T> implements Deque<T> {
     private int size;
     private int nextFirst;
@@ -122,7 +122,10 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     public class Arrayiterator implements Iterator<T> {
-        private int pointer = 0;
+        private int pointer;
+        public Arrayiterator(){
+            pointer=0;
+        }
 
         public boolean hasNext() {
             if (pointer < size) {
