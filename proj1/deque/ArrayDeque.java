@@ -114,7 +114,7 @@ public class ArrayDeque<item> implements Deque<item>{
     }
     public class Arrayiterator implements Iterator{
         int pointer=0;
-        @Override
+
         public boolean hasNext() {
             if(pointer<size){
                 return true;
@@ -122,7 +122,7 @@ public class ArrayDeque<item> implements Deque<item>{
             return false;
         }
 
-        @Override
+
         public item next() {
             pointer++;
             return get(pointer);
@@ -130,11 +130,11 @@ public class ArrayDeque<item> implements Deque<item>{
 
         }
     }
-    @Override
+
     public Iterator<item> iterator(){
         return new Arrayiterator();
     }
-    @Override
+
     public boolean equals(Object o){
         if(o instanceof Deque){
             if(size==((Deque<?>) o).size()){

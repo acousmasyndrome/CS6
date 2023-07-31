@@ -140,7 +140,7 @@ public class LinkedListDeque<item> implements Deque<item> {
    }
     public class Linkediterator implements Iterator{
         int pointer=0;
-        @Override
+
         public boolean hasNext() {
             if(pointer<size){
                 return true;
@@ -148,7 +148,7 @@ public class LinkedListDeque<item> implements Deque<item> {
             return false;
         }
 
-        @Override
+
         public item next() {
             pointer++;
            return get(pointer);
@@ -156,11 +156,11 @@ public class LinkedListDeque<item> implements Deque<item> {
 
         }
     }
-    @Override
+
    public Iterator<item> iterator(){
         return new Linkediterator();
    }
-   @Override
+
    public boolean equals(Object o){
         if(o instanceof Deque){
             if(size==((Deque<?>) o).size()){
