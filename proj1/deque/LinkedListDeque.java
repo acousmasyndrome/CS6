@@ -11,7 +11,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         private Nodes next;
         private Nodes prev;
 
-        public Nodes(T x, Nodes items) {
+        Nodes(T x, Nodes items) {
             content = x;
             next = items;
             if (items != null) {
@@ -146,7 +146,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     private class Linkediterator implements Iterator<T> {
         private int pointer;
 
-        public Linkediterator() {
+        Linkediterator() {
             pointer = 0;
         }
 
@@ -181,7 +181,7 @@ public class LinkedListDeque<T> implements Deque<T> {
                     return true;
                 } else {
                     for (int i = 0; i < size; i++) {
-                        if (get(i) != otherobject.get(i)) {
+                        if (!get(i).equals(otherobject.get(i))) {
                             return false;
                         }
                     }

@@ -41,7 +41,8 @@ public class RandomTest {
         for (int i = 0; i < N; i += 1) {
             int operationNumber = StdRandom.uniform(0, 5);
             int randVal = StdRandom.uniform(0, 100);
-            Assert.assertEquals(randomized(L1, operationNumber, randVal), randomized(L2, operationNumber, randVal));
+            Assert.assertEquals(randomized(L1, operationNumber, randVal),
+                    randomized(L2, operationNumber, randVal));
 
         }
     }
@@ -71,7 +72,7 @@ public class RandomTest {
             } else {
                 return "oh,no,crashed";
             }
-        } else {// addFirst
+        } else { // addFirst
             L.addFirst(randVal);
             return "addFirst(" + randVal + ")";
         }
@@ -102,7 +103,7 @@ public class RandomTest {
             } else {
                 return "oh,no,crashed";
             }
-        } else {// addFirst
+        } else { // addFirst
             L.addFirst(randVal);
             return "addFirst(" + randVal + ")";
         }

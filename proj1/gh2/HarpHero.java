@@ -2,7 +2,6 @@ package gh2;
 
 import edu.princeton.cs.algs4.StdAudio;
 import edu.princeton.cs.algs4.StdDraw;
-import org.apache.commons.math3.analysis.function.Pow;
 
 /**
  * A client that uses the synthesizer package to replicate a plucked guitar string sound
@@ -20,7 +19,7 @@ public class HarpHero {
                 char key = StdDraw.nextKeyTyped();
                 if (keyboard.contains(String.valueOf(key))) {
                     int index = keyboard.indexOf(key);
-                    double connect = connect_key(index);
+                    double connect = connectKey(index);
                     string = new HarpString(connect);
                     string.pluck();
                 } else {
@@ -40,7 +39,7 @@ public class HarpHero {
         }
     }
 
-    private static double connect_key(int index) {
+    private static double connectKey(int index) {
         double connect = CONCERT * Math.pow(2, (index - 24) / 12.0);
         return connect;
     }

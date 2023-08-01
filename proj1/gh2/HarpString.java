@@ -3,7 +3,7 @@ package gh2;
 import deque.Deque;
 import deque.LinkedListDeque;
 
-public class HarpString implements InstrumentString {
+public class HarpString {
     private static final double DECAY = .996; // energy decay factor
 
     /* Buffer for storing sound data. */
@@ -20,7 +20,6 @@ public class HarpString implements InstrumentString {
 
 
     /* Pluck the guitar string by replacing the buffer with white noise. */
-    @Override
     public void pluck() {
         //       Make sure that your random numbers are different from each
         //       other. This does not mean that you need to check that the numbers
@@ -36,15 +35,13 @@ public class HarpString implements InstrumentString {
     /* Advance the simulation one time step by performing one iteration of
      * the Karplus-Strong algorithm.
      */
-    @Override
     public void tic() {
-        double First = buffer.removeFirst();
-        double average = -(First + buffer.get(0)) / 2;
+        double first = buffer.removeFirst();
+        double average = -(first + buffer.get(0)) / 2;
         buffer.addLast(DECAY * average);
     }
 
     /* Return the double at the front of the buffer. */
-    @Override
     public double sample() {
         return buffer.get(0);
     }

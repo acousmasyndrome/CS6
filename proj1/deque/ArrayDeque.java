@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
     private int nextFirst;
     private int nextLast;
@@ -128,10 +128,11 @@ public class ArrayDeque<T> implements Deque<T> {
     private class Arrayiterator implements Iterator<T> {
         private int pointer;
 
-        public Arrayiterator() {
+        Arrayiterator() {
             pointer = 0;
         }
 
+        @Override
         public boolean hasNext() {
             if (pointer < size) {
                 return true;
@@ -140,6 +141,7 @@ public class ArrayDeque<T> implements Deque<T> {
         }
 
 
+        @Override
         public T next() {
             pointer++;
             return get(pointer - 1);
@@ -151,27 +153,28 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     public boolean equals(Object o) {
-        if (o instanceof Deque) {
-            Deque<T> otherobject = (Deque<T>) o;
-            if (size == otherobject.size()) {
-                if (this == o) {
-                    return true;
-                }
-                if (size == 0) {
-                    return true;
-                } else {
-                    for (int i = 0; i < size; i++) {
-                        if (get(i) != otherobject.get(i)) {
-                            return false;
+        if (this == o) {
+            return true;
+        } else {
+            if (o instanceof Deque) {
+                Deque<T> otherobject = (Deque<T>) o;
+                if (size == otherobject.size()) {
+                    if (size == 0) {
+                        return true;
+                    } else {
+                        for (int i = 0; i < size; i++) {
+                            if (!get(i).equals(otherobject.get(i))) {
+                                return false;
+                            }
                         }
+                        return true;
                     }
-                    return true;
+                } else {
+                    return false;
                 }
             } else {
                 return false;
             }
-        } else {
-            return false;
         }
     }
 }

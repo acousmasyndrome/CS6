@@ -4,7 +4,7 @@ import deque.Deque;
 import deque.LinkedListDeque;
 
 //Note: This file will not compile until you complete the Deque implementations
-public class GuitarString implements InstrumentString {
+public class GuitarString {
     /**
      * Constants. Do not change. In case you're curious, the keyword final
      * means the values cannot be changed at runtime. We'll discuss this and
@@ -28,7 +28,6 @@ public class GuitarString implements InstrumentString {
 
 
     /* Pluck the guitar string by replacing the buffer with white noise. */
-    @Override
     public void pluck() {
         //       Make sure that your random numbers are different from each
         //       other. This does not mean that you need to check that the numbers
@@ -44,15 +43,13 @@ public class GuitarString implements InstrumentString {
     /* Advance the simulation one time step by performing one iteration of
      * the Karplus-Strong algorithm.
      */
-    @Override
     public void tic() {
-        double First = buffer.removeFirst();
-        double average = (First + buffer.get(0)) / 2;
+        double first = buffer.removeFirst();
+        double average = (first + buffer.get(0)) / 2;
         buffer.addLast(DECAY * average);
     }
 
     /* Return the double at the front of the buffer. */
-    @Override
     public double sample() {
         return buffer.get(0);
     }
