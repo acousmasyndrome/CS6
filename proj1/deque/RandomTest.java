@@ -4,27 +4,32 @@ import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
-
-import static org.junit.Assert.*;
-
 /**
  * Created by hug.
  */
 public class RandomTest {
     @Test
-    public void  testThreeAddThreeRemove(){
-        LinkedListDeque<Integer> correct_alist = new LinkedListDeque<>();
-        ArrayDeque<Integer>buggy_alist = new ArrayDeque<>();
-        for(int i=4;i<7;i++) {
-            correct_alist.addLast(i);
-            buggy_alist.addLast(i);
+    public void testThreeAddThreeRemove() {
+        LinkedListDeque<Integer> correctAlist = new LinkedListDeque<>();
+        ArrayDeque<Integer> buggyAlist = new ArrayDeque<>();
+        for (int i = 0; i < 100000; i++) {
+            correctAlist.addLast(i);
+            buggyAlist.addLast(i);
         }
-        Assert.assertEquals(correct_alist.size(),buggy_alist.size());
-        int times=3;
-        while(times !=0) {
-            Assert.assertEquals(correct_alist.removeLast(),buggy_alist.removeLast());
-            times--;
+        Assert.assertEquals(correctAlist.size(), buggyAlist.size());
+        int times = 100000;
+        while (times != 0) {
+            int operationNumber = StdRandom.uniform(0, 3);
+            if (operationNumber == 0) {
+                Assert.assertEquals(correctAlist.removeLast(), buggyAlist.removeLast());
+                times--;
+            } else if (operationNumber == 1) {
+                Assert.assertEquals(correctAlist.removeFirst(), buggyAlist.removeFirst());
+                times--;
+            } else {
+                Assert.assertEquals(correctAlist.get(correctAlist.size() - 1),
+                        buggyAlist.get(buggyAlist.size() - 1));
+            }
         }
     }
 
@@ -32,59 +37,74 @@ public class RandomTest {
     public void randomizedTest() {
         LinkedListDeque<Integer> L1 = new LinkedListDeque<>();
         ArrayDeque<Integer> L2 = new ArrayDeque<>();
-        int N = 5000;
+        int N = 100000;
         for (int i = 0; i < N; i += 1) {
-            int operationNumber = StdRandom.uniform(0, 4);
+            int operationNumber = StdRandom.uniform(0, 5);
             int randVal = StdRandom.uniform(0, 100);
-            Assert.assertEquals(randomized(L1,operationNumber,randVal),randomized(L2,operationNumber,randVal));
+            Assert.assertEquals(randomized(L1, operationNumber, randVal), randomized(L2, operationNumber, randVal));
 
         }
     }
-    public static String randomized(ArrayDeque<Integer> L,int operationNumber,int randVal) {
-        if (operationNumber == 0) {
-            // addLast
-            L.addLast(randVal);
-            return "addLast(" + randVal + ")";
-        } else if (operationNumber == 1) {
-            // size
-            int size = L.size();
-            return "size: " + size;
-        } else if (operationNumber == 2) {
-            if (L.size() > 0) {
-                return "getLast:" + L.get(L.size()-1);
-            } else {
-                return "oh,no,crashed";
-            }
-        } else {
-            if (L.size() > 0) {
-                return "removeLast:" + L.removeLast();
-            } else {
-                return "oh,no,crashed";
-            }
-        }
-    }
-    public static String randomized(LinkedListDeque<Integer> L,int operationNumber,int randVal) {
+
+    public static String randomized(ArrayDeque<Integer> L, int operationNumber, int randVal) {
         if (operationNumber == 0) {
             // addLast
 
             L.addLast(randVal);
             return "addLast(" + randVal + ")";
         } else if (operationNumber == 1) {
-            // size
-            int size = L.size();
-            return "size: " + size;
-        } else if (operationNumber == 2) {
+            // removeFirst
             if (L.size() > 0) {
-                return "getLast:" + L.get(L.size()-1);
+                return "removeFirst." + L.removeFirst();
             } else {
                 return "oh,no,crashed";
             }
-        } else {
+        } else if (operationNumber == 2) {
+            if (L.size() > 0) {
+                return "getLast:" + L.get(L.size() - 1);
+            } else {
+                return "oh,no,crashed";
+            }
+        } else if (operationNumber == 3) {
             if (L.size() > 0) {
                 return "removeLast:" + L.removeLast();
             } else {
                 return "oh,no,crashed";
             }
+        } else {// addFirst
+            L.addFirst(randVal);
+            return "addFirst(" + randVal + ")";
+        }
+    }
+
+    public static String randomized(LinkedListDeque<Integer> L, int operationNumber, int randVal) {
+        if (operationNumber == 0) {
+            // addLast
+
+            L.addLast(randVal);
+            return "addLast(" + randVal + ")";
+        } else if (operationNumber == 1) {
+            // removeFirst
+            if (L.size() > 0) {
+                return "removeFirst." + L.removeFirst();
+            } else {
+                return "oh,no,crashed";
+            }
+        } else if (operationNumber == 2) {
+            if (L.size() > 0) {
+                return "getLast:" + L.get(L.size() - 1);
+            } else {
+                return "oh,no,crashed";
+            }
+        } else if (operationNumber == 3) {
+            if (L.size() > 0) {
+                return "removeLast:" + L.removeLast();
+            } else {
+                return "oh,no,crashed";
+            }
+        } else {// addFirst
+            L.addFirst(randVal);
+            return "addFirst(" + randVal + ")";
         }
     }
 }

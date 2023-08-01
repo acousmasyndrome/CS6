@@ -1,5 +1,7 @@
 package deque;
+
 import java.util.Iterator;
+
 public class ArrayDeque<T> implements Deque<T> {
     private int size;
     private int nextFirst;
@@ -15,21 +17,22 @@ public class ArrayDeque<T> implements Deque<T> {
         nextLast = size;
     }
 
-    private void resize(int new_compacity) {
-        T[] new_items = (T[]) new Object[new_compacity];
-        if (nextLast <= nextFirst) {
+    private void resize(double doubleCompacity) {
+        int newCompacity = (int) doubleCompacity;
+        T[] newItems = (T[]) new Object[newCompacity];
+        if (nextLast <= nextFirst + 1) {
             for (int i = (nextFirst + 1) % compacity; i < (nextFirst + 1) % compacity + size; i++) {
-                new_items[i - (nextFirst + 1) % compacity] = items[i % compacity];
+                newItems[i - (nextFirst + 1) % compacity] = items[i % compacity];
             }
         } else {
             for (int i = nextFirst + 1; i < nextLast; i++) {
-                new_items[i - nextFirst - 1] = items[i];
+                newItems[i - nextFirst - 1] = items[i];
             }
 
         }
 
-        items = new_items;
-        compacity = new_compacity;
+        items = newItems;
+        compacity = newCompacity;
         nextFirst = compacity - 1;
         nextLast = size;
     }
@@ -65,7 +68,8 @@ public class ArrayDeque<T> implements Deque<T> {
             System.out.print("null");
         } else {
             if (nextLast <= nextFirst) {
-                for (int i = (nextFirst + 1) % compacity; i < (nextFirst + 1) % compacity + size; i++) {
+                for (int i = (nextFirst + 1) % compacity;
+                     i < (nextFirst + 1) % compacity + size; i++) {
                     System.out.print(items[i % compacity] + "");
                 }
             } else {
@@ -79,32 +83,32 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T removeFirst() {
-        if (size - 1 < compacity / 4 && compacity >= 16) {
-            resize(compacity / 2);
-        }
-
-        if (size == 0) {
+        if (isEmpty()) {
             return null;
         } else {
             T marked = items[(nextFirst + 1) % compacity];
+            items[(nextFirst + 1) % compacity] = null;
             nextFirst = (nextFirst + 1) % compacity;
             size = size - 1;
+            if (size < compacity / 4.0 && compacity >= 16) {
+                resize(compacity / 2.0);
+            }
             return marked;
         }
     }
 
     @Override
     public T removeLast() {
-        if (size - 1 < compacity / 4 && compacity >= 16) {
-            resize(compacity / 2);
-        }
-
-        if (size == 0) {
+        if (isEmpty()) {
             return null;
         } else {
             T marked = items[(nextLast - 1 + compacity) % compacity];
+            items[(nextLast - 1 + compacity) % compacity] = null;
             nextLast = (nextLast - 1 + compacity) % compacity;
             size = size - 1;
+            if (size < compacity / 4.0 && compacity >= 16) {
+                resize(compacity / 2.0);
+            }
             return marked;
         }
 
@@ -121,10 +125,11 @@ public class ArrayDeque<T> implements Deque<T> {
 
     }
 
-    public class Arrayiterator implements Iterator<T> {
+    private class Arrayiterator implements Iterator<T> {
         private int pointer;
-        public Arrayiterator(){
-            pointer=0;
+
+        public Arrayiterator() {
+            pointer = 0;
         }
 
         public boolean hasNext() {
@@ -138,8 +143,6 @@ public class ArrayDeque<T> implements Deque<T> {
         public T next() {
             pointer++;
             return get(pointer - 1);
-
-
         }
     }
 
@@ -148,8 +151,8 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     public boolean equals(Object o) {
-        if (o instanceof ArrayDeque) {
-            ArrayDeque<T> otherobject = (ArrayDeque<T>) o;
+        if (o instanceof Deque) {
+            Deque<T> otherobject = (Deque<T>) o;
             if (size == otherobject.size()) {
                 if (this == o) {
                     return true;

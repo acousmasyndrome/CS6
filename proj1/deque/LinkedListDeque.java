@@ -1,13 +1,15 @@
 package deque;
+
 import java.util.Iterator;
+
 public class LinkedListDeque<T> implements Deque<T> {
     private Nodes sentinal;
     private int size;
 
-    public class Nodes {
-        public T content;
-        public Nodes next;
-        public Nodes prev;
+    private class Nodes {
+        private T content;
+        private Nodes next;
+        private Nodes prev;
 
         public Nodes(T x, Nodes items) {
             content = x;
@@ -45,10 +47,10 @@ public class LinkedListDeque<T> implements Deque<T> {
     @Override
     public void addLast(T x) {
         if (sentinal.next != null) {
-            Nodes prev_lastNodes = sentinal.next.prev;
-            Nodes last_nodes = new Nodes(x, sentinal.next);
-            prev_lastNodes.next = last_nodes;
-            last_nodes.prev = prev_lastNodes;
+            Nodes prevLastNodes = sentinal.next.prev;
+            Nodes lastNodes = new Nodes(x, sentinal.next);
+            prevLastNodes.next = lastNodes;
+            lastNodes.prev = prevLastNodes;
             size = size + 1;
         } else {
             addFirst(x);
@@ -126,23 +128,23 @@ public class LinkedListDeque<T> implements Deque<T> {
     public T getRecursive(int index) {
         if (index < size && index >= 0) {
             Nodes marked = sentinal.next;
-            return getRecursive_helper(index, marked);
+            return getRecursiveHelper(index, marked);
         } else {
             return null;
         }
     }
 
     //a helper method to better fulfill the mission of get index element recursively.
-    private T getRecursive_helper(int index, Nodes marked) {
+    private T getRecursiveHelper(int index, Nodes marked) {
         if (index == 0) {
             return marked.content;
         } else {
-            return getRecursive_helper(index - 1, marked.next);
+            return getRecursiveHelper(index - 1, marked.next);
         }
     }
 
-    public class Linkediterator implements Iterator<T> {
-        private int pointer ;
+    private class Linkediterator implements Iterator<T> {
+        private int pointer;
 
         public Linkediterator() {
             pointer = 0;
@@ -158,7 +160,7 @@ public class LinkedListDeque<T> implements Deque<T> {
 
         public T next() {
             pointer++;
-            return get(pointer-1);
+            return get(pointer - 1);
 
 
         }
@@ -169,8 +171,8 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     public boolean equals(Object o) {
-        if (o instanceof LinkedListDeque) {
-            LinkedListDeque<T> otherobject = (LinkedListDeque<T>) o;
+        if (o instanceof Deque) {
+            Deque<T> otherobject = (Deque<T>) o;
             if (size == otherobject.size()) {
                 if (this == o) {
                     return true;
