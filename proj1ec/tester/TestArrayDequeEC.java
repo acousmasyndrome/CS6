@@ -36,48 +36,18 @@ public class TestArrayDequeEC {
             Assert.assertEquals(ranval, ranval);
 
         } else if (randomNumber == 2) {
-            int expected = 0;
-            int actual = 0;
-            if ((ads1.isEmpty() || ads1.getFirst() == null) &&
-                    (sad1.isEmpty() || sad1.get(sad1.size() - 1) == null)) {
-                Assert.assertEquals(expected, actual);
-            } else if (sad1.isEmpty() || sad1.get(sad1.size() - 1) == null) {
-                expected = ads1.removeFirst();
-                methodsString.addLast("removeFirst()");
-                Assert.assertEquals("\n" + String.join("\n",
-                        methodsString), expected, actual);
-            } else if (ads1.isEmpty() || ads1.getFirst() == null) {
-                actual = sad1.removeFirst();
-                methodsString.addLast("removeFirst()");
-                Assert.assertEquals("\n" + String.join("\n",
-                        methodsString), expected, actual);
-            } else {
-                expected = ads1.removeFirst();
-                actual = sad1.removeFirst();
+            if (!(ads1.isEmpty() && sad1.isEmpty())) {
+                Integer expected = ads1.removeFirst();
+                Integer actual = sad1.removeFirst();
                 methodsString.addLast("removeFirst()");
                 Assert.assertEquals("\n" + String.join("\n",
                         methodsString), expected, actual);
             }
 
         } else {
-            int expected = 0;
-            int actual = 0;
-            if ((ads1.isEmpty() || ads1.getLast() == null) &&
-                    (sad1.isEmpty() || sad1.get(sad1.size() - 1) == null)) {
-                Assert.assertEquals(expected, actual);
-            } else if (sad1.isEmpty() || sad1.get(sad1.size() - 1) == null) {
-                expected = ads1.removeLast();
-                methodsString.addLast("removeLast()");
-                Assert.assertEquals("\n" + String.join("\n",
-                        methodsString), expected, actual);
-            } else if (ads1.isEmpty() || ads1.getLast() == null) {
-                actual = sad1.removeLast();
-                methodsString.addLast("removeLast()");
-                Assert.assertEquals("\n" + String.join("\n",
-                        methodsString), expected, actual);
-            } else {
-                expected = ads1.removeLast();
-                actual = sad1.removeLast();
+            if (!(ads1.isEmpty() && sad1.isEmpty())) {
+                Integer expected = ads1.removeLast();
+                Integer actual = sad1.removeLast();
                 methodsString.addLast("removeLast()");
                 Assert.assertEquals("\n" + String.join("\n",
                         methodsString), expected, actual);
