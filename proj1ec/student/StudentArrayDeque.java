@@ -2,14 +2,14 @@ package student;
 
 public class StudentArrayDeque<T> {
     private T[] a = (T[]) (new Object[8]);
-    private int b = 8;
-    private int c = 0;
+    private int b = 8; // compacity
+    private int c = 0; // size
     private int d = 4;
-    private int e = 4;
-    private int f = 5;
-    private boolean g = false;
-    private boolean h = false;
-    private T z = null;
+    private int e = 4; // firstpoint
+    private int f = 5; // lastpoint
+    private boolean g = false; //addLast or removeLast
+    private boolean h = false; //addFirst or removeFirst, appearing when this.c=-1 comes.
+    private T z = null; //new latest added item
 
     public StudentArrayDeque() {
     }
@@ -60,7 +60,7 @@ public class StudentArrayDeque<T> {
             } else {
                 --this.c;
                 T var1;
-                if (this.e != this.d) {
+                if (this.e != this.d ) {
                     if (this.e == this.a.length - 1) {
                         var1 = this.a[0];
                         this.e = 0;
@@ -78,7 +78,6 @@ public class StudentArrayDeque<T> {
                         this.h = false;
                         this.e = 0;
                     }
-
                     return (T) var1;
                 } else if (this.e == this.a.length - 1) {
                     var1 = this.a[0];
