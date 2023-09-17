@@ -1,0 +1,2 @@
+insert string in order is much slower than insert string in random(nearly 10 times slower).
+What's more, the length of the string greatly affect the speed of insertion(more than 10 times).
